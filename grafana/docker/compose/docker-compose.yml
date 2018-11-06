@@ -1,0 +1,27 @@
+version: '3.6'
+
+services:
+  grafana:
+    restart: always
+    image: grafana:latest
+    container_name: grafana
+    build:
+      context: ../dockerfile
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    networks:
+      - back
+      - front
+
+networks:
+  back:
+    external:
+      name: back
+
+  front:
+    external:
+      name: front
+
+volumes:
+  grafana:

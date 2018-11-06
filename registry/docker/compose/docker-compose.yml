@@ -1,0 +1,30 @@
+version: '3.6'
+
+services:
+  registry:
+    restart: always
+    image: registry:latest
+    container_name: registry
+    build:
+      context: ../dockerfile
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - registry:/var/lib/registry
+    networks:
+      - back
+      - front
+
+networks:
+  back:
+    external:
+      name: back
+
+  front:
+    external:
+      name: front
+
+volumes:
+  registry:
+

@@ -1,0 +1,53 @@
+version: '3.6'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    build:
+      context: ../dockerfile
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - 80:80
+      - 443:443
+      - 9000:9000
+      - 9001:9001
+      - 9002:9002
+      - 9004:9004
+      - 9005:9005
+      - 9006:9006
+      - 9007:9007
+    volumes:
+    #Sites
+      - type: bind
+        source: ${WWW_PATH}
+        target: /var/www/yoursite.demo.by
+
+
+    #SSL
+      - type: bind
+        source: ${SSL_PATH}
+        target: /etc/nginx/certs/
+
+    #Configs
+      - type: bind
+        source: ${WWW_CONF_PATH}
+        target: /etc/nginx/conf.d
+    networks:
+      - back
+      - front
+    working_dir: /var/www/
+
+networks:
+  back:
+    external:
+      name: back
+
+  front:
+    external:
+      name: front
+
+volumes:
+  nginx:

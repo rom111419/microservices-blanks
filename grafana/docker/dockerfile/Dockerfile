@@ -1,0 +1,2 @@
+FROM grafana/grafana
+MAINTAINER FULL NAME

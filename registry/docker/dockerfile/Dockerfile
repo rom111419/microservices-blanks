@@ -1,0 +1,2 @@
+FROM registry:latest
+MAINTAINER FULL NAME
